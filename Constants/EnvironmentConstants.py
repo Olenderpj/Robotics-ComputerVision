@@ -1,2 +1,2 @@
 
-FLOOR = "/ResizableFloor_5_25"
+FLOOR = "/Floor"

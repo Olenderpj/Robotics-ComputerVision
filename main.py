@@ -13,13 +13,7 @@ clientID = simulationUtils.startSimulation(simulation)
 
 youBot = YouBot(simulation)
 
-youBot.setAllMotorsToSameVelocity(5)
-
-while True:
-    youBot.readProximitySensor1()
-
-
-sleep(3)
+youBot.moveToAngle(90)
 
 sleep(4)
 
