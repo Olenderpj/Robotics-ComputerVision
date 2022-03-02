@@ -11,9 +11,10 @@ simulationUtils.stopSimulation(simulation)
 
 clientID = simulationUtils.startSimulation(simulation)
 
-youBot = YouBot(simulation)
+#youBot = YouBot(simulation)
 
-youBot.moveToAngle(90)
+algo = simulation.setAlgorithm.RRT
+print(algo)
 
 sleep(4)
 

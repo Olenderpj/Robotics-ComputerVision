@@ -1,12 +1,15 @@
-# This is a test
+# Coppellia Roboitics Software
 ***
 
-### Necessary Packages
+### Required Packages
 ***
 - Colorama
+- Cbor
+- Zmq
 
 
 
 Links that might be useful
 ***
 https://github.com/NxRLab/ModernRobotics/blob/master/packages/Python/modern_robotics/core.py
+
