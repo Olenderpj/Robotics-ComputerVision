@@ -1,7 +1,7 @@
 import math
 from Constants.pioneerConstants import *
 from time import *
-from Sensors.UltrasonicSensor import *
+from ObjectClasses.UltrasonicSensor import *
 from Utilities.pioneerUtilities import *
 
 ''' This class is mostly set up for a pioneer robot, but could be configured for others as well'''

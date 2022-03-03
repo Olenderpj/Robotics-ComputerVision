@@ -3,9 +3,10 @@
 
 ### Required Packages
 ***
-- Colorama
-- Cbor
-- Zmq
+- Colorama - Text Color
+- Cbor - ???
+- Zmq - API Interface
+- PIL - Image Drawing
 
 
 

@@ -1,6 +1,5 @@
 import math
 
-
 def mapEntityOrientationFromRadiansToDegrees(orientationObj):
     newOrientationList = []
     for i in range(len(orientationObj)):

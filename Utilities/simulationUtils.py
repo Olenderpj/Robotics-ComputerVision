@@ -1,5 +1,6 @@
 import logging
 import time
+from ObjectClasses.SceneShape import SceneShape
 from Utilities.loggingUtils import printSuccessMessage
 
 
@@ -20,3 +21,20 @@ def startSimulation(simulation):
         return sim
     except:
         logging.warning("[ERROR]: An error occurred while attempting to start the simulation environment")
+
+
+# Get all shape objects from the simulation scene - Things like walls, pillars, etc
+def getAllShapeObjects(simulation, estimatedSceneShapes=500):
+    allSimulationShapeObjects = []
+    i = 0
+    print("Getting all simulation shapes")
+
+    while i < estimatedSceneShapes:
+        objectHandle = simulation.getObjects(i,  simulation.object_shape_type)
+        if objectHandle != -1:
+            shape = SceneShape(simulation, objectHandle)
+            allSimulationShapeObjects.append(shape)
+        else:
+            break
+        i += 1
+    return allSimulationShapeObjects
