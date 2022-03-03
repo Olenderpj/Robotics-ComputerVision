@@ -1,5 +1,6 @@
 import math
 
+
 def mapEntityOrientationFromRadiansToDegrees(orientationObj):
     newOrientationList = []
     for i in range(len(orientationObj)):
@@ -15,3 +16,31 @@ def mapEntityOrientationFromRadiansToDegrees(orientationObj):
             result = result * 100000
         newOrientationList.append(result)
     return newOrientationList
+
+
+def determineQuadrant(x, y):
+    if x > 0 and y > 0:
+        return 1
+    elif x < 0 and y > 0:
+        return 2
+    elif x < 0 and y < 0:
+        return 3
+    elif x > 0 and y < 0:
+        return 4
+
+
+# Normalizes a value within the specified range
+def normalizePointValue(value, maxValue):
+    half = maxValue / 2
+    negHalf = half * -1
+    normalizedValue = half + value
+
+    if normalizedValue > maxValue:
+        normalizedValue = maxValue
+    elif normalizedValue < 0:
+        normalizedValue = 0
+
+    return normalizedValue
+
+
+
