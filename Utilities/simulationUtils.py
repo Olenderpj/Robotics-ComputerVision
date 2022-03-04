@@ -1,5 +1,7 @@
 import logging
 import time
+from Utilities.loggingUtils import *
+from Constants.EnvironmentConstants import EXCLUDED_SCENE_OBJECTS
 from ObjectClasses.SceneShape import SceneShape
 from Utilities.loggingUtils import printSuccessMessage
 
@@ -24,7 +26,7 @@ def startSimulation(simulation):
 
 
 # Get all shape objects from the simulation scene - Things like walls, pillars, etc
-def getAllShapeObjects(simulation, estimatedSceneShapes=500):
+def getAllShapeObjects(simulation, estimatedSceneShapes=1500):
     allSimulationShapeObjects = []
     i = 0
     print("Getting all simulation shapes")
@@ -32,6 +34,7 @@ def getAllShapeObjects(simulation, estimatedSceneShapes=500):
     while i < estimatedSceneShapes:
         objectHandle = simulation.getObjects(i,  simulation.object_shape_type)
         if objectHandle != -1:
+            printRetrievalMessage(f"[Retrieval]: Retrieving object {objectHandle} from the Scene")
             shape = SceneShape(simulation, objectHandle)
             allSimulationShapeObjects.append(shape)
         else:

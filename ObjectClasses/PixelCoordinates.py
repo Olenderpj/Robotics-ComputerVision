@@ -3,6 +3,14 @@ from Utilities.mathUtils import normalizePointValue
 
 
 class PixelCoordinates:
+    """
+    Calculates the exact location for where an object should be placed within a PIL
+    image that is generated later on.
+
+    - lowerleft* is considered the coordinate of the actual point on the object in the scene
+
+    - draw* is considered the calculation for where the object should be drawn in a PIL image.
+    """
 
     def __init__(self, x1, y1, x2, y2, maxX, maxY):
 

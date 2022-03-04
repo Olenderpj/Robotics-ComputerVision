@@ -4,6 +4,11 @@ from ObjectClasses.PixelCoordinates import PixelCoordinates
 
 
 class SceneShape:
+    """
+    Represents a Singular object in the Copellia Simulation Environment Ex: a wall, window, etc...
+    Stores the objects properties like handle, bounding box, pose, and also has a sub-class
+    containing the pixel values see the @PixelCoordinates for more
+    """
 
     def __init__(self, simulation, objectHandle):
         self.simulation = simulation

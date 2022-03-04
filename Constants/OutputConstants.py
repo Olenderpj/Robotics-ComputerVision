@@ -1,1 +1,5 @@
 PIXEL_SCALAR = 1000
+COLOR_MODE = "RGB"
+BG_COLOR = "Black"
+SHAPE_FILL = "White"
+

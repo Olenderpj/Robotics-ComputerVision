@@ -13,6 +13,7 @@ class Pose:
         self.qy = self.pose[4]
         self.qz = self.pose[5]
         self.qw = self.pose[6]
+        self.name = simulation.getObjectAlias(objectHandle, -1)
 
         # Object is on the horizontal plane
         if self.orientation == 90 or self.orientation == -90:
@@ -28,8 +29,8 @@ class Pose:
             self.y2 = self.y + (boundingBox[1] / 2)
 
         else:
-            logging.critical("[CRITICAL ERROR]: An object has been found with an invalid orientation",
-                             [self.orientation])
+
+            logging.critical(f"[CRITICAL ERROR]: An object has been found with an invalid orientation [NAME:{self.name}, ORIENTATION:{self.orientation}]")
 
     def getShape(self):
 
