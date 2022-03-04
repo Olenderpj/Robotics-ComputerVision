@@ -21,12 +21,12 @@ class SceneShape:
         self.objectPosition = simulation.getObjectPosition(self.objectHandle, self.floorHandle)
         # Create a new pose object
         self.pose = Pose(self.simulation, self.objectHandle, self.floorHandle, self.shapeBoundingBox)
-        self.pixelValues = PixelCoordinates(self.pose.x1,
-                                            self.pose.y1,
-                                            self.pose.x2,
-                                            self.pose.y2,
-                                            self.floorBoundingBox[0],
-                                            self.floorBoundingBox[1])
+        self.pixelCoordinates = PixelCoordinates(self.pose.x1,
+                                                 self.pose.y1,
+                                                 self.pose.x2,
+                                                 self.pose.y2,
+                                                 self.floorBoundingBox[0],
+                                                 self.floorBoundingBox[1])
 
     def __str__(self):
         return "ID: " + str(self.objectHandle) + " Name: " + self.name

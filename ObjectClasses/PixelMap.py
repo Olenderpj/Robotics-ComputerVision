@@ -25,10 +25,10 @@ class PixelMap:
             if shape.name not in EXCLUDED_SCENE_OBJECTS:
                 printBuildMessage(f"[BUILD]: Building {shape.objectHandle}, {shape.name}")
                 shapeToAdd = ImageDraw.Draw(baseImage)
-                shapeToAdd.rectangle([(shape.pixelValues.drawX1,
-                                       shape.pixelValues.drawY1),
-                                      (shape.pixelValues.drawX2,
-                                       shape.pixelValues.drawY2)],
+                shapeToAdd.rectangle([(shape.pixelCoordinates.drawX1,
+                                       shape.pixelCoordinates.drawY1),
+                                      (shape.pixelCoordinates.drawX2,
+                                       shape.pixelCoordinates.drawY2)],
                                      fill=SHAPE_FILL)
 
         print(f"[PHOTO SHAPE]: {self.floorPixelsX} x {self.floorPixelsY}")
