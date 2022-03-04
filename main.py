@@ -17,9 +17,10 @@ def main():
     sim = client.getObject('sim')
     simulationUtils.stopSimulation(sim)
     clientID = simulationUtils.startSimulation(sim)
+    sceneShapes = getAllShapeObjects(sim)
 
     # Build the Pixel map from the simulation environment
-    pixelMap = PixelMap(sim)
+    pixelMap = PixelMap(sim, sceneShapes)
     #pixelMap.buildBWPixelMap()
 
     # numpy.set_printoptions(threshold=sys.maxsize)
@@ -33,22 +34,12 @@ def main():
     start = (50, 50)
     goal = (75, 75)
 
-    for i in getAllShapeObjects(sim):
-        print(i.name)
-        print(i.shapeBoundingBox)
-        rectangleObj = pygame.Rect(i.pixelCoordinates.drawX1,
-                                   i.pixelCoordinates.drawY1,
-                                   i.shapeBoundingBox[0],
-                                   i.shapeBoundingBox[1])
-        print(rectangleObj)
-
-
     pygame.init()
-    map = RRTMap(sim, start, goal, width, height)
-    graph = RRTGraph(sim, start, goal, width, height)
+    gameMap = RRTMap(sim, start, goal, width, height, sceneShapes)
+    graph = RRTGraph(sim, start, goal, width, height, sceneShapes)
 
     obstacles = graph.makeObstacles()
-    map.drawMap(obstacles)
+    gameMap.drawMap(obstacles)
 
     pygame.display.update()
     pygame.event.clear()

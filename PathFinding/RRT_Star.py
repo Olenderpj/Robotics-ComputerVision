@@ -1,12 +1,14 @@
 import math
 import pygame
+from Utilities.loggingUtils import *
 from Constants.EnvironmentConstants import *
 from Utilities.simulationUtils import getAllShapeObjects
 
 
 class RRTMap:
-    def __init__(self, simulation, start, goal, width, height):
+    def __init__(self, simulation, start, goal, width, height, sceneShapes):
         self.simulation = simulation
+        self.sceneShapes = sceneShapes
         self.start = start
         self.goal = goal
         self.mapWidth = width
@@ -30,7 +32,6 @@ class RRTMap:
         self.red = (255, 0, 0)
         self.white = (255, 255, 255)
 
-
     def drawMap(self, obstacles):
         pygame.draw.circle(self.map, self.green, self.start, self.nodeRadius + 5, 0)
         pygame.draw.circle(self.map, self.red, self.goal, self.nodeRadius + 20, 1)
@@ -43,12 +44,14 @@ class RRTMap:
         obstacleList = obstacles.copy()
         while (len(obstacleList)) > 0:
             obstacle = obstacleList.pop(0)
+            printSuccessMessage(f"[SUCCESS]: Drawing pygame Object {obstacle}")
             pygame.draw.rect(self.map, self.grey, obstacle)
 
 
 class RRTGraph:
-    def __init__(self, simulation, start, goal, width, height):
+    def __init__(self, simulation, start, goal, width, height, sceneShapes):
         self.simulation = simulation
+        self.sceneShapes = sceneShapes
         (x, y) = start
         self.start = start
         self.goal = goal
@@ -75,8 +78,18 @@ class RRTGraph:
 
     def makeObstacles(self):
         obstacles = []
-        allShapes = getAllShapeObjects(self.simulation)
-        obstacles.append(pygame.Rect(0, 0, 10, 50))
+        allShapes = self.sceneShapes
+
+        for i in allShapes:
+            if i.name not in EXCLUDED_SCENE_OBJECTS:
+                printBuildMessage(f"[BUILD]: Building Pygame Objects - {i.objectHandle}, {i.name}")
+                print(i.name, "X:", i.pixelCoordinates.drawX2,
+                      "Y:", i.pixelCoordinates.drawY2)
+                obj = pygame.Rect(i.pixelCoordinates.drawX1,
+                                  i.pixelCoordinates.drawY2,
+                                  i.shapeBoundingBoxWidth,
+                                  i.shapeBoundingBoxHeight)
+                obstacles.append(obj)
 
         self.obstacles = obstacles.copy()
 

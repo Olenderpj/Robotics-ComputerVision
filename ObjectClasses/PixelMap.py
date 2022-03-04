@@ -1,7 +1,6 @@
 from Utilities.loggingUtils import *
 from Constants.OutputConstants import *
 from Constants.EnvironmentConstants import *
-from Utilities.simulationUtils import getAllShapeObjects
 from PIL import Image, ImageDraw
 
 
@@ -11,8 +10,8 @@ class PixelMap:
     Shape objects within the scene to a black and white image.
     """
 
-    def __init__(self, simulation):
-        self.sceneShapes = getAllShapeObjects(simulation)
+    def __init__(self, simulation, sceneShapes):
+        self.sceneShapes = sceneShapes
         self.floorHandle = simulation.getObject(FLOOR)
         self.floorBoundingBox = simulation.getShapeBB(self.floorHandle)
         self.floorPixelsX = int(self.floorBoundingBox[0] * PIXEL_SCALAR)
