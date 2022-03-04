@@ -30,4 +30,7 @@ class PixelMap:
                                       (shape.pixelValues.drawX2,
                                        shape.pixelValues.drawY2)],
                                      fill=SHAPE_FILL)
+
+        print(f"[PHOTO SHAPE]: {self.floorPixelsX} x {self.floorPixelsY}")
         baseImage.show()
+        baseImage.save("SceneMaps/Maze.png")

@@ -1,27 +1,32 @@
 from Utilities import simulationUtils
-from Constants.EnvironmentConstants import *
 from zmqRemoteApi.clients.python.zmqRemoteApi import RemoteAPIClient
 from ObjectClasses.PixelMap import PixelMap
+from PIL import Image
+import numpy as np
+from PathFinding.Dijkstras import Dijkstras
+
 
 
 if __name__ == "__main__":
     client = RemoteAPIClient()
     sim = client.getObject('sim')
-
     simulationUtils.stopSimulation(sim)
-
     clientID = simulationUtils.startSimulation(sim)
 
-    floor = sim.getObject(FLOOR)
+    # Build the Pixel map from the simulation environment
+    #pixelMap = PixelMap(sim)
+    # pixelMap.buildBWPixelMap()
 
-    print(sim.getShapeBB(floor))
+    import sys
+    import numpy
 
-    pixelMap = PixelMap(sim)
-    print(pixelMap.floorPixelsX, pixelMap.floorPixelsY)
-    pixelMap.buildBWPixelMap()
+    numpy.set_printoptions(threshold=sys.maxsize)
 
-    #img1.rectangle([(sc.pixelValues.drawX1, sc.pixelValues.drawY1), (sc.pixelValues.drawX2, sc.pixelValues.drawY2)], fill="white")
-    #img2.rectangle([(scc.pixelValues.drawX1, scc.pixelValues.drawY1), (scc.pixelValues.drawX2, scc.pixelValues.drawY2)], fill="Blue")
-    #img.show()
+    image = Image.open("SceneMaps/Maze.png")
+    imageArray = np.array(image)
+
+    print(len(imageArray[500]))
+
+
 
     simulationUtils.stopSimulation(sim)

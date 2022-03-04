@@ -7,6 +7,7 @@
 - Cbor - ???
 - Zmq - API Interface
 - PIL - Image Drawing
+- Numpy
 
 
 
