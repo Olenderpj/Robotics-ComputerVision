@@ -27,9 +27,14 @@ def startSimulation(simulation):
 
 # Get all shape objects from the simulation scene - Things like walls, pillars, etc
 def getAllShapeObjects(simulation, estimatedSceneShapes=1500):
+    """
+    Retrieve all shape objects from the scene
+    :param simulation:
+    :param estimatedSceneShapes:
+    :return: list of simulation objects:
+    """
     allSimulationShapeObjects = []
     i = 0
-    print("Getting all simulation shapes")
 
     while i < estimatedSceneShapes:
         objectHandle = simulation.getObjects(i,  simulation.object_shape_type)
