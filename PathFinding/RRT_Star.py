@@ -1,4 +1,6 @@
 import math
+import random
+
 import pygame
 from Utilities.loggingUtils import *
 from Constants.EnvironmentConstants import *
@@ -19,7 +21,7 @@ class RRTMap:
         pygame.display.set_caption(self.mapWindowName)
         self.map = pygame.display.set_mode((self.mapWidth, self.mapHeight))
         self.map.fill((255,255,255))
-        self.nodeRadius = 0
+        self.nodeRadius = 2
         self.nodeThickness = 0
         self.edgeThickness = 1
 
@@ -95,35 +97,71 @@ class RRTGraph:
 
         return obstacles
 
-    def addNode(self):
-        pass
+    def addNode(self, n, x, y):
+        self.x.insert(n, x)
+        self.y.append(y)
 
-    def removeNode(self):
-        pass
+    def removeNode(self, n):
+        self.x.pop(n)
+        self.y.pop(n)
 
-    def addEdge(self):
-        pass
+    def addEdge(self, parent, child):
+        self.parent.insert(child, parent)
 
-    def removeEdge(self):
-        pass
+    def removeEdge(self, n):
+        self.parent.pop(n)
 
     def numberOfNodes(self):
-        pass
+        return len(self.x)
 
-    def distance(self):
-        pass
+    def distance(self, n1, n2):
+        (x1, y1) = (self.x[n1], self.y[n1])
+        (x2, y2) = (self.x[n2], self.y[n2])
+        px = (float(x1) - float(x2)) ** 2
+        py = (float(y1) - float(y2)) ** 2
+
+        return (px + py) ** (0.5)
+
+    def sampleEnvironment(self):
+        x = int(random.uniform(0, self.mapWidth))
+        y = int(random.uniform(0, self.mapHeight))
+        return x, y
 
     def nearest(self):
         pass
 
     def isFree(self):
-        pass
+        n = self.numberOfNodes() - 1
+        (x, y) = (self.x[n], self.y[n])
+        obstacles = self.obstacles.copy()
+        while len(obstacles) > 0:
+            rectangle = obstacles.pop(0)
+            if rectangle.collidepoint(x, y):
+                self.removeNode(n)
+                return False
+        return True
 
-    def crossObstacle(self):
-        pass
+    def crossObstacle(self, x1, x2, y1, y2):
+        obstacle = self.obstacles.copy()
+        while len(obstacle) > 0:
+            rectangle = obstacle.pop(0)
+            for i in range(0, 101):
+                u = i / 100
+                x = x1 * u + x2*(1-u)
+                y = y1 * u + y2*(1-u)
+                if rectangle.collidepoint(x, y):
+                    return True
+        return False
 
-    def connect(self):
-        pass
+    def connect(self, n1, n2):
+        (x1, y1) = (self.x[n1], self.y[n1])
+        (x2, y2) = (self.x[n2], self.y[n2])
+        if self.crossObstacle(x1, x2, y1, y2):
+            self.removeNode(n2)
+            return False
+        else:
+            self.addEdge(n1, n2)
+            return True
 
     def step(self):
         pass

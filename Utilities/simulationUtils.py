@@ -1,10 +1,9 @@
 import logging
 import time
 from Utilities.loggingUtils import *
-from Constants.EnvironmentConstants import EXCLUDED_SCENE_OBJECTS
-from ObjectClasses.SceneShape import SceneShape
+from ObjectClasses.PlotShape import PlotShape
 from Utilities.loggingUtils import printSuccessMessage
-
+from Constants.EnvironmentConstants import FLOOR
 
 def stopSimulation(simulation):
     try:
@@ -28,11 +27,14 @@ def startSimulation(simulation):
 # Get all shape objects from the simulation scene - Things like walls, pillars, etc
 def getAllShapeObjects(simulation, estimatedSceneShapes=1500):
     """
-    Retrieve all shape objects from the scene
+    Retrieve all shape objects from the scene and build PlotShape Objects
     :param simulation:
     :param estimatedSceneShapes:
     :return: list of simulation objects:
     """
+    # Get the floor handle here because it saves computation power when creating shape objects
+    floorHandle = simulation.getObjectHandle(FLOOR)
+
     allSimulationShapeObjects = []
     i = 0
 
@@ -40,9 +42,12 @@ def getAllShapeObjects(simulation, estimatedSceneShapes=1500):
         objectHandle = simulation.getObjects(i,  simulation.object_shape_type)
         if objectHandle != -1:
             printRetrievalMessage(f"[Retrieval]: Retrieving object {objectHandle} from the Scene")
-            shape = SceneShape(simulation, objectHandle)
+            shape = PlotShape(simulation, objectHandle, floorHandle)
+            print(shape)
             allSimulationShapeObjects.append(shape)
         else:
             break
         i += 1
     return allSimulationShapeObjects
+
+

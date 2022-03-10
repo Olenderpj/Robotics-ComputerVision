@@ -1,5 +1,8 @@
-PIXEL_SCALAR = 50
+
+# A minimum scalar value of 7 or greater should be used
+PIXEL_SCALAR = 100
+
 COLOR_MODE = "L"
-BG_COLOR = "Black"
-SHAPE_FILL = "White"
+BG_COLOR = "White"
+SHAPE_FILL = "Black"
 
