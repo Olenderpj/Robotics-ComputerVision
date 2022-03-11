@@ -1,4 +1,6 @@
 import math
+import matplotlib.pyplot as plt
+from Constants.EnvironmentConstants import OBJECT_BUFFER
 
 
 class PlotShape:
@@ -23,15 +25,21 @@ class PlotShape:
             self.shapeWidth = self.shapeBoundingBox[0]
             self.shapeHeight = self.shapeBoundingBox[1]
 
+        self.shapeWidth = self.shapeWidth + OBJECT_BUFFER
+        self.shapeHeight = self.shapeHeight + OBJECT_BUFFER
+
         self.lowerLeftX = self.shapePos[0] - (self.shapeWidth * .5)
         self.lowerLeftY = self.shapePos[1] - (self.shapeHeight * .5)
-
+        self.upperRightX = self.shapePos[0] + (self.shapeWidth * .5)
+        self.upperRightY = self.shapePos[1] + (self.shapeHeight * .5)
 
     def __str__(self):
-        return "\nHandle: " + str(self.shapeHandle) + \
+        return "Handle: " + str(self.shapeHandle) + \
                "\n\tName: " + self.shapeName +\
                "\n\tOrientation: " + str(self.orientation) +\
-               "\n\tLL X:" + str(self.lowerLeftX) +\
-               "\n\tLL Y:" + str(self.lowerLeftY) +\
-               "\n\tWidth:" + str(self.shapeWidth) +\
-               "\n\tHeight:" + str(self.shapeHeight)
+               "\n\tLL X: " + str(self.lowerLeftX) +\
+               "\n\tLL Y: " + str(self.lowerLeftY) + \
+               "\n\tUR X: " + str(self.upperRightX) + \
+               "\n\tUR Y: " + str(self.upperRightY) + \
+               "\n\tWidth: " + str(self.shapeWidth) +\
+               "\n\tHeight: " + str(self.shapeHeight) + "\n"

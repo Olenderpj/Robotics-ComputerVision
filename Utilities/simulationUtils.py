@@ -3,7 +3,7 @@ import time
 from Utilities.loggingUtils import *
 from ObjectClasses.PlotShape import PlotShape
 from Utilities.loggingUtils import printSuccessMessage
-from Constants.EnvironmentConstants import FLOOR
+from Constants.EnvironmentConstants import *
 
 def stopSimulation(simulation):
     try:
@@ -44,10 +44,29 @@ def getAllShapeObjects(simulation, estimatedSceneShapes=1500):
             printRetrievalMessage(f"[Retrieval]: Retrieving object {objectHandle} from the Scene")
             shape = PlotShape(simulation, objectHandle, floorHandle)
             print(shape)
-            allSimulationShapeObjects.append(shape)
+            if shape.shapeName not in EXCLUDED_SCENE_OBJECTS:
+                allSimulationShapeObjects.append(shape)
         else:
             break
         i += 1
     return allSimulationShapeObjects
 
+
+def getMinMax(array):
+    minX, maxX, minY, maxY = 0, 0, 0, 0
+
+    for i in array:
+        if i.lowerLeftX > maxX:
+            maxX = i.lowerLeftX
+
+        if i.lowerLeftX < minX:
+            minX = i.lowerLeftX
+
+        if i.lowerLeftY > maxY:
+            maxY = i.lowerLeftY
+
+        if i.lowerLeftY < minY:
+            minY = i.lowerLeftY
+
+    return minX, maxX, minY, maxY
 
