@@ -43,7 +43,7 @@ def getAllShapeObjects(simulation, estimatedSceneShapes=1500):
         if objectHandle != -1:
             printRetrievalMessage(f"[Retrieval]: Retrieving object {objectHandle} from the Scene")
             shape = PlotShape(simulation, objectHandle, floorHandle)
-            print(shape)
+            # print(shape)
             if shape.shapeName not in EXCLUDED_SCENE_OBJECTS:
                 allSimulationShapeObjects.append(shape)
         else:

@@ -9,6 +9,10 @@ def printBuildMessage(message):
     print(Fore.BLUE + message, Style.RESET_ALL)
 
 
+def printNodeMessage(message):
+    print(Fore.LIGHTGREEN_EX + message, Style.RESET_ALL)
+
+
 def printRetrievalMessage(message):
     print(Fore.YELLOW + message, Style.RESET_ALL)
 

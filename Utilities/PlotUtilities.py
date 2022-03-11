@@ -1,4 +1,5 @@
 from Constants.EnvironmentConstants import *
+from Utilities.loggingUtils import *
 from Constants.OutputConstants import SHAPE_FILL
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,6 +23,12 @@ def buildPlot(sim):
 
 
 def plotObstacles(plot, obstacles):
+    """
+    Plot all obstacles within an array as a square.
+    :param plot:
+    :param obstacles:
+    :return:
+    """
     for i in obstacles:
         if i.shapeName not in EXCLUDED_SCENE_OBJECTS:
             obstacle = plot.Rectangle([i.lowerLeftX, i.lowerLeftY], i.shapeWidth, i.shapeHeight, color=SHAPE_FILL)
@@ -30,20 +37,37 @@ def plotObstacles(plot, obstacles):
 
 
 def plotNodes(plot, nodes):
+    """
+    Plot all nodes within an array
+    :param plot:
+    :param nodes:
+    :return:
+    """
     for i in nodes:
-        print("Plotting: ", i)
+        printNodeMessage(f"Plotting: {i}")
         node = plot.Circle(i, radius=NODE_RADIUS, color=NODE_COLOR)
         plot.gca().add_patch(node)
-
     return plot
 
 
 def generateNodes(minX, maxX, minY, maxY):
+    """
+    Generate All nodes within the x and y constraints at an interval set in the Environment constants file.
+    :param minX:
+    :param maxX:
+    :param minY:
+    :param maxY:
+    :return:
+    """
     nodeArray = []
+    minXBounds = minX + NODE_SPACING
+    minYBounds = minY + NODE_SPACING
+    maxXBounds = maxX - (NODE_SPACING * .5)
+    maxYBounds = maxY + (NODE_SPACING * .5)
 
-    for y in np.arange(minY, maxY + NODE_SPACING + 2, NODE_SPACING):
-        for x in np.arange(minX, maxX + NODE_SPACING + 2, NODE_SPACING):
-            print("X: ", round(x, 8), "Y:", round(y, 8))
+    for y in np.arange(minYBounds, maxYBounds, NODE_SPACING):
+        for x in np.arange(minXBounds, maxXBounds, NODE_SPACING):
+            printNodeMessage(f"Generated Node at X: {round(x, 4)} Y: {round(y, 4)}")
             node = (y, x)
 
             nodeArray.append(node)
@@ -51,27 +75,32 @@ def generateNodes(minX, maxX, minY, maxY):
 
 
 def evaluateAllNodes(nodeArray, obstacleArray):
-    invalidNodeArray = []
+    """
+    Generate all of the invalid nodes within the maze
+    :param nodeArray:
+    :param obstacleArray:
+    :return:
+    """
 
-    print(len(nodeArray))
+    invalidNodeArray = []
     for node in nodeArray:
         x, y = node
         for obstacle in obstacleArray:
-            a = obstacle.lowerLeftX < x < obstacle.upperRightX
-            b = obstacle.lowerLeftY < y < obstacle.upperRightY
-
-            if a and b:
+            # Evaluate the bounds of where each point resides
+            if obstacle.lowerLeftX < x < obstacle.upperRightX and obstacle.lowerLeftY < y < obstacle.upperRightY:
                 invalidNodeArray.append(node)
-
-    print(len(invalidNodeArray))
     return invalidNodeArray
 
 
 def cleanNodes(invalidNodes, allNodes):
+    """
+    Remove all invalid nodes within the array
+    :param invalidNodes:
+    :param allNodes:
+    :return:
+    """
     nodes = []
     for i in range(len(allNodes)):
         if allNodes[i] not in invalidNodes:
             nodes.append(allNodes[i])
     return nodes
-
-
